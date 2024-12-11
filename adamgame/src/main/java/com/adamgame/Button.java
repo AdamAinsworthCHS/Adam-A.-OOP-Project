@@ -1,5 +1,5 @@
 package com.adamgame;
 
-public class Button {
+public class button {
     
 }

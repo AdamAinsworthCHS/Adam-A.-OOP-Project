@@ -35,4 +35,12 @@ public class App extends Application {
         launch();
     }
 
+    player hero = new player();
+
+    button play = new button();
+
+    enemy slime = new enemy();
+
+    item potion = new item();
+
 }
