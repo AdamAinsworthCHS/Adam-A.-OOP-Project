@@ -32,15 +32,18 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        player hero = new player();
+        button play = new button();
+        enemy slime = new enemy();
+        item potion = new item();
+        System.out.println(hero.toString()); { 
+
+        }
+        System.out.println(hero.toString());
+        System.out.println(play.toString());
+        System.out.println(slime.toString());
+        System.out.println(potion.toString());
         launch();
     }
-
-    player hero = new player();
-
-    button play = new button();
-
-    enemy slime = new enemy();
-
-    item potion = new item();
 
 }
