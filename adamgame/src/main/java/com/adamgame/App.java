@@ -2,9 +2,13 @@ package com.adamgame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -16,10 +20,17 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws IOException {
+        BorderPane root = new BorderPane();
+
+        Button play = new Button("Play");
+        play.setMaxSize(100, 50);
+        
+        root.setCenter(play);
+
+        Scene scene1 = new Scene(root, 400, 400);
+        primaryStage.setScene(scene1);
+        primaryStage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -32,18 +43,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        player hero = new player();
-        button play = new button();
-        enemy slime = new enemy();
-        item potion = new item();
-        System.out.println(hero.toString()); { 
-
-        }
-        System.out.println(hero.toString());
-        System.out.println(play.toString());
-        System.out.println(slime.toString());
-        System.out.println(potion.toString());
-        launch();
+        Application.launch(args);
     }
 
 }
