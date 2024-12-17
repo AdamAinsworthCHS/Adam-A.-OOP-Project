@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import java.io.IOException;
 
@@ -21,14 +25,38 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        BorderPane root = new BorderPane();
+        //Sets the title of the window
+        primaryStage.setTitle("Adam's Game");
 
+        //Creates play button
         Button play = new Button("Play");
         play.setMaxSize(100, 50);
-        
-        root.setCenter(play);
 
-        Scene scene1 = new Scene(root, 400, 400);
+        //Creates Second Button
+        Button button2 = new Button("button2");
+        button2.setMaxSize(100, 50);
+
+        //Creates GridPane layout and sets scene info
+        GridPane layout = new GridPane();
+        layout.setPadding(new Insets(10, 10, 10, 10));
+        layout.setVgap(8);
+        layout.setHgap(10);
+        
+        //Adding objects to layout
+        layout.add(play, 0, 0);
+        layout.add(button2, 0, 1);
+
+        //Define action events for widgets
+        play.setOnAction(event -> 
+            System.out.println("BUTTON WORKS")
+        );
+
+        button2.setOnAction(event -> 
+            System.out.println("BUTTON 2")
+        );
+
+        //Initializes the scene
+        Scene scene1 = new Scene(layout, 600, 400);
         primaryStage.setScene(scene1);
         primaryStage.show();
     }

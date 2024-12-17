@@ -20,6 +20,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
+    
+      <dependency>
+        <groupId>com.sun.faces</groupId>
+        <artifactId>jsf-api</artifactId>
+        <version>2.2.20</version>
+      </dependency>
     </dependencies>
     <build>
         <plugins>
