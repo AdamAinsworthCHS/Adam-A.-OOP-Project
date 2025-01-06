@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 
@@ -27,9 +29,9 @@ public class App extends Application {
         Button play = new Button("Play");
         play.setMaxSize(100, 50);
 
-        //Creates Second Button
-        Button button2 = new Button("button2");
-        button2.setMaxSize(100, 50);
+        //Creates a label
+        Label title = new Label("Adam's Game");
+        title.setFont(new Font("Arial", 24));
 
         //Creates GridPane layout and sets scene info
         GridPane layout = new GridPane();
@@ -38,16 +40,19 @@ public class App extends Application {
         layout.setHgap(10);
         
         //Adding objects to layout
-        layout.add(play, 0, 0);
-        layout.add(button2, 0, 1);
+        layout.add(play, 20, 30);
+        layout.add(title, 20, 5);
 
         //Define action events for widgets
         play.setOnAction(event -> 
-            System.out.println("BUTTON WORKS")
-        );
-
-        button2.setOnAction(event -> 
-            System.out.println("BUTTON 2")
+            {
+            play.setVisible(false);
+            play.setManaged(false);
+            title.setVisible(false);
+            title.setManaged(false);
+            enemy slime = new enemy("Slime", 1, 1);
+            System.out.print(slime.type);
+            }
         );
 
         //Initializes the scene
