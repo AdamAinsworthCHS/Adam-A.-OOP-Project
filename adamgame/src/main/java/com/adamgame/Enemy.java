@@ -28,9 +28,9 @@ public class enemy {
         return type + ": " + hp + " HP";
     }
 
-    public void getHit()
+    public void getHit(int damage)
     {
-        hp -= 1;
+        hp -= damage;
     }
 
     public int getHP()
