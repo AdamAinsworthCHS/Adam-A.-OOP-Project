@@ -60,6 +60,10 @@ public class App extends Application {
         Button attackUp = new Button("+1 Attack");
         attackUp.setMaxSize(100, 50);
 
+        //Creates play button
+        Button play = new Button("Play");
+        play.setMaxSize(100, 50);
+
         //Define action events for widgets
         attackUp.setOnAction(event -> 
             {
@@ -103,8 +107,8 @@ public class App extends Application {
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
-        );
-
+        ); 
+        
         //Define action events for widgets
         attack.setOnAction(event -> 
             {
@@ -125,14 +129,31 @@ public class App extends Application {
                     playerHP.setManaged(false);
                 } else {
                     p.getHit(monster.getAttack());
+                    if (p.getHP() < 1){
+                        title.setVisible(true);
+                        title.setManaged(true);
+                        play.setVisible(true);
+                        play.setManaged(true);
+                        enemyInfo.setVisible(false);
+                        enemyInfo.setManaged(false);
+                        attack.setVisible(false);
+                        attack.setManaged(false);
+                        playerHP.setVisible(false);
+                        playerHP.setManaged(false);
+                        levelupChoice.setVisible(false);
+                        levelupChoice.setManaged(false);
+                        hpUp.setVisible(false);
+                        hpUp.setManaged(false);
+                        attackUp.setVisible(false);
+                        attackUp.setManaged(false);
+                        control.resetScaling();
+                        p.reset();
+                    }
                     playerHP.setText(p.getStringHP());
                 }
             }
         );
         
-        //Creates play button
-        Button play = new Button("Play");
-        play.setMaxSize(100, 50);
 
         //Define action events for widgets
         play.setOnAction(event -> 

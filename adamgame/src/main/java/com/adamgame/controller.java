@@ -29,13 +29,15 @@ public class controller {
         if (scalingStage == 5){
             scalingStage = 0;
             scalingFactor += 1;
-            System.out.println(scalingStage);
-            System.out.println(scalingFactor);
             return scalingFactor;
         } else {
-            System.out.println(scalingStage);
-            System.out.println(scalingFactor);
             return scalingFactor;
         }
+    }
+
+    public void resetScaling()
+    {
+        scalingFactor = 1;
+        scalingStage = 0;
     }
 }

@@ -54,4 +54,11 @@ public class player {
     {
         hp = maxHP;
     }
+
+    public void reset()
+    {
+        hp = 5;
+        maxHP = 5;
+        attack = 1;
+    }
 }
