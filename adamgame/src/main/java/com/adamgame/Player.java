@@ -61,4 +61,14 @@ public class player {
         maxHP = 5;
         attack = 1;
     }
+
+    public void statIncrease(String increaseType, int increaseAmount)
+    {
+        if (increaseType == "HP"){
+            maxHP += increaseAmount;
+            hp = maxHP;
+        } else {
+            attack += increaseAmount;
+        }
+    }
 }

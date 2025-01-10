@@ -28,6 +28,7 @@ public class App extends Application {
         player p = new player("", 5, 5, 1);
         Random rand = new Random();
         controller control = new controller(1, 0);
+        item i = new item("", 0);
 
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
@@ -49,7 +50,7 @@ public class App extends Application {
         attack.setMaxSize(100, 50);
 
         //Creates upgrade choice label
-        Label levelupChoice = new Label("Choose HP up or DMG up");
+        Label levelupChoice = new Label("Choose reward");
         levelupChoice.setFont(new Font("Arial", 24));
 
         //Creates hp up button
@@ -59,6 +60,10 @@ public class App extends Application {
         //Creates attack up button
         Button attackUp = new Button("+1 Attack");
         attackUp.setMaxSize(100, 50);
+
+        //Creates random item button
+        Button randomReward = new Button("Mystery Box");
+        randomReward.setMaxSize(100, 50);
 
         //Creates play button
         Button play = new Button("Play");
@@ -75,6 +80,8 @@ public class App extends Application {
                 hpUp.setManaged(false);
                 attackUp.setVisible(false);
                 attackUp.setManaged(false);
+                randomReward.setVisible(false);
+                randomReward.setManaged(false);
                 enemyInfo.setManaged(true);
                 enemyInfo.setVisible(true);
                 attack.setVisible(true);
@@ -97,12 +104,38 @@ public class App extends Application {
                 hpUp.setManaged(false);
                 attackUp.setVisible(false);
                 attackUp.setManaged(false);
+                randomReward.setVisible(false);
+                randomReward.setManaged(false);
                 enemyInfo.setManaged(true);
                 enemyInfo.setVisible(true);
                 attack.setVisible(true);
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
+                monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
+                enemyInfo.setText(monster.toString());
+                playerHP.setText(p.getStringHP());
+            }
+        ); 
+
+        //Define action events for widgets
+        randomReward.setOnAction(event -> 
+            {
+                levelupChoice.setVisible(false);
+                levelupChoice.setManaged(false);
+                hpUp.setVisible(false);
+                hpUp.setManaged(false);
+                attackUp.setVisible(false);
+                attackUp.setManaged(false);
+                randomReward.setVisible(false);
+                randomReward.setManaged(false);
+                enemyInfo.setManaged(true);
+                enemyInfo.setVisible(true);
+                attack.setVisible(true);
+                attack.setManaged(true);
+                playerHP.setVisible(true);
+                playerHP.setManaged(true);
+                p.statIncrease(i.randomType(rand.nextInt(2)), i.randomAmount(rand.nextInt(4)));
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -121,6 +154,8 @@ public class App extends Application {
                     hpUp.setManaged(true);
                     attackUp.setVisible(true);
                     attackUp.setManaged(true);
+                    randomReward.setVisible(true);
+                    randomReward.setManaged(true);
                     enemyInfo.setManaged(false);
                     enemyInfo.setVisible(false);
                     attack.setVisible(false);
@@ -146,6 +181,8 @@ public class App extends Application {
                         hpUp.setManaged(false);
                         attackUp.setVisible(false);
                         attackUp.setManaged(false);
+                        randomReward.setVisible(false);
+                        randomReward.setManaged(false);
                         control.resetScaling();
                         p.reset();
                     }
@@ -187,8 +224,9 @@ public class App extends Application {
         layout.add(attack, 20, 30);
         layout.add(playerHP, 20, 35);
         layout.add(levelupChoice, 20, 5);
-        layout.add(attackUp, 15, 30);
-        layout.add(hpUp, 20, 30);
+        layout.add(attackUp, 10, 30);
+        layout.add(hpUp, 15, 30);
+        layout.add(randomReward, 20, 30);
 
         
 
@@ -210,6 +248,8 @@ public class App extends Application {
         hpUp.setManaged(false);
         attackUp.setVisible(false);
         attackUp.setManaged(false);
+        randomReward.setVisible(false);
+        randomReward.setManaged(false);
     }
 
     static void setRoot(String fxml) throws IOException {
