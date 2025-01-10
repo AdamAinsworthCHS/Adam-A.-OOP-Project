@@ -14,13 +14,30 @@ public class enemy {
         maxHP = enemyMaxHealth;
     }
 
-    
-    public void update(String newType, int newHealth, int newMaxHP, int newAttack)
+    public void update(String newType, int scaling)
     {
-        type = newType;
-        hp = newHealth;
-        attack = newAttack;
-        maxHP = newMaxHP;
+        if (newType == "Slime"){
+            type = "Slime";
+            hp = 1 * scaling;
+            attack = 1 * scaling;
+            maxHP = 1 * scaling;
+        } else if (newType == "Bat"){
+            type = "Bat";
+            hp = 1 * scaling;
+            attack = 2 * scaling;
+            maxHP = 1 * scaling;
+        } else if (newType == "Spider"){
+            type = "Spider";
+            hp = 2 * scaling;
+            attack = 2 * scaling;
+            maxHP = 2 * scaling;
+        } else { 
+            type = "Golem";
+            hp = 4 * scaling;
+            attack = 3 * scaling;
+            maxHP = 4 * scaling;
+        }
+        
     }
     
     public String toString()

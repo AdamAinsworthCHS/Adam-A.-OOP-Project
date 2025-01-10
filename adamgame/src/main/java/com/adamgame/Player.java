@@ -49,4 +49,9 @@ public class player {
     {
         attack += increase;
     }
+
+    public void fullHeal()
+    {
+        hp = maxHP;
+    }
 }

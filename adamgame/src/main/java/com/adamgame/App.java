@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import java.util.Random;
 
 import java.io.IOException;
 
@@ -25,6 +26,8 @@ public class App extends Application {
         //Defines variables and objects
         enemy monster = new enemy("", 0, 0, 0);
         player p = new player("", 5, 5, 1);
+        Random rand = new Random();
+        controller control = new controller(1, 0);
 
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
@@ -50,17 +53,18 @@ public class App extends Application {
         levelupChoice.setFont(new Font("Arial", 24));
 
         //Creates hp up button
-        Button hpUp = new Button("+2 HP");
+        Button hpUp = new Button("+1 HP");
         hpUp.setMaxSize(100, 50);
 
         //Creates attack up button
-        Button attackUp = new Button("+2 Attack");
+        Button attackUp = new Button("+1 Attack");
         attackUp.setMaxSize(100, 50);
 
         //Define action events for widgets
         attackUp.setOnAction(event -> 
             {
-                p.attackUp(2);
+                p.attackUp(1);
+                p.fullHeal();
                 levelupChoice.setVisible(false);
                 levelupChoice.setManaged(false);
                 hpUp.setVisible(false);
@@ -73,15 +77,16 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                monster.update("Slime", monster.getMaxHP() + 1, monster.getMaxHP() + 1, monster.getAttack() + 1);
+                monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
+                playerHP.setText(p.getStringHP());
             }
         );
 
         //Define action events for widgets
         hpUp.setOnAction(event -> 
             {
-                p.hpUp(2);
+                p.hpUp(1);
                 levelupChoice.setVisible(false);
                 levelupChoice.setManaged(false);
                 hpUp.setVisible(false);
@@ -94,7 +99,7 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                monster.update("Slime", monster.getMaxHP() + 1, monster.getMaxHP() + 1, monster.getAttack() + 1);
+                monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
@@ -142,7 +147,7 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                monster.update("Slime", 1, 1, 1);
+                monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
