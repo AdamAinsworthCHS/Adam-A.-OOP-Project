@@ -28,7 +28,7 @@ public class App extends Application {
         player p = new player("", 5, 5, 1);
         Random rand = new Random();
         controller control = new controller(1, 0);
-        item i = new item("", 0);
+        item i = new item(0, 0, 0);
 
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
@@ -135,7 +135,9 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                p.statIncrease(i.randomType(rand.nextInt(2)), i.randomAmount(rand.nextInt(4)));
+                i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 1));
+                p.hpUp(i.getHP());
+                p.attackUp(i.getAttack());
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -148,6 +150,14 @@ public class App extends Application {
                 monster.getHit(p.getAttack());
                 enemyInfo.setText(monster.toString());
                 if (monster.getHP() <=0){
+                    if (i.getUses() > 0){
+                        i.removeUse();
+                        if (i.getUses() == 0){
+                            p.statDecrease("HP", i.getHPData());
+                            p.statDecrease("Attack", i.getAttackData());
+                            i.update(0, 0, 0);
+                        }
+                    }
                     levelupChoice.setVisible(true);
                     levelupChoice.setManaged(true);
                     hpUp.setVisible(true);

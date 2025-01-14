@@ -1,18 +1,22 @@
 package com.adamgame;
 
 public class item {
-    String type = "";
+    int hpUp = 0;
+    int attackUp = 0;
     int uses = 0;
+    int hpData;
+    int attackData;
 
-    public item(String itemType, int itemUses)
+    public item(int hpFactor, int attackFactor, int itemUses)
     {
-        type = itemType;
+        hpUp = hpFactor;
+        attackUp = attackFactor;
         uses = itemUses;
     }
 
     public String toString()
     {
-        return "item " + "Type: " + type + " Uses: " + uses;
+        return "item ";
     }
 
     public String randomType(int randInt)
@@ -24,16 +28,47 @@ public class item {
         }
     }
 
-    public int randomAmount(int randInt)
+    public String removeUse()
     {
-        if (randInt == 0){
-            return 0;
-        } else if (randInt == 1){
-            return 1;
-        } else if (randInt == 2){
-            return 2;
+        uses -= 1;
+        if (uses < 1){
+            return "Item Expired";
         } else {
-            return 3;
+            return "Item Fine";
         }
+    }
+
+    public void update(int hpAdd, int attackAdd, int usesAdd)
+    {
+        hpUp = hpAdd;
+        attackUp = attackAdd;
+        uses = usesAdd;
+        hpData += hpAdd;
+        attackData += attackAdd;
+    }
+
+    public int getHP()
+    {
+        return hpUp;
+    }
+    
+    public int getAttack()
+    {
+        return attackUp;
+    }
+
+    public int getUses()
+    {
+        return uses;
+    }
+
+    public int getHPData()
+    {
+        return hpData;
+    }
+    
+    public int getAttackData()
+    {
+        return attackData;
     }
 }

@@ -71,4 +71,14 @@ public class player {
             attack += increaseAmount;
         }
     }
+
+    public void statDecrease(String decreaseType, int decreaseAmount)
+    {
+        if (decreaseType == "HP"){
+            maxHP -= decreaseAmount;
+            hp = maxHP;
+        } else {
+            attack -= decreaseAmount;
+        }
+    }
 }
