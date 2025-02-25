@@ -34,7 +34,7 @@ public class enemy {
         } else { 
             type = "Golem";
             hp = 4 * scaling;
-            attack = 3 * scaling;
+            attack = 2 * scaling;
             maxHP = 4 * scaling;
         }
         

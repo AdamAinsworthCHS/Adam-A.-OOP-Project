@@ -1,18 +1,18 @@
 package com.adamgame;
 
+import java.io.IOException;
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import java.util.Random;
-
-import java.io.IOException;
+import javafx.stage.Stage;
 
 /**
  * JavaFX App
@@ -69,7 +69,7 @@ public class App extends Application {
         Button play = new Button("Play");
         play.setMaxSize(100, 50);
 
-        //Define action events for widgets
+        //Code for pressing the attack up button
         attackUp.setOnAction(event -> 
             {
                 p.attackUp(1);
@@ -94,7 +94,7 @@ public class App extends Application {
             }
         );
 
-        //Define action events for widgets
+        //Code for pressing the hp up button
         hpUp.setOnAction(event -> 
             {
                 p.hpUp(1);
@@ -118,7 +118,7 @@ public class App extends Application {
             }
         ); 
 
-        //Define action events for widgets
+        //Code for pressing the mystery box button
         randomReward.setOnAction(event -> 
             {
                 levelupChoice.setVisible(false);
@@ -135,7 +135,7 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 1));
+                i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 2));
                 p.hpUp(i.getHP());
                 p.attackUp(i.getAttack());
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
@@ -144,7 +144,7 @@ public class App extends Application {
             }
         ); 
         
-        //Define action events for widgets
+        //Code for pressing the attack button
         attack.setOnAction(event -> 
             {
                 monster.getHit(p.getAttack());
@@ -202,7 +202,7 @@ public class App extends Application {
         );
         
 
-        //Define action events for widgets
+        //Code for pressing the play button
         play.setOnAction(event -> 
             {
                 play.setVisible(false);
@@ -215,7 +215,7 @@ public class App extends Application {
                 attack.setManaged(true);
                 playerHP.setVisible(true);
                 playerHP.setManaged(true);
-                monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
+                monster.update(control.randomEnemy(0), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
