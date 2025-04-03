@@ -30,44 +30,55 @@ public class App extends Application {
         controller control = new controller(1, 0);
         item i = new item(0, 0, 0);
 
+        Font upheavalTitle = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 50);
+        Font upheavalLarge = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 36);
+        Font upheavalMedium = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 24);
+        Font upheavalSmall = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 12);
+        
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
 
         //Creates game title
         Label title = new Label("Adam's Game");
-        title.setFont(new Font("Arial", 24));
+        title.setFont(upheavalTitle);
 
         //Creates enemy info label
         Label enemyInfo = new Label();
-        enemyInfo.setFont(new Font("Arial", 24));
+        enemyInfo.setFont(upheavalMedium);
 
         //Creates player hp info label
         Label playerHP = new Label();
-        playerHP.setFont(new Font("Arial", 24));
+        playerHP.setFont(upheavalMedium);
 
         //Creates attack button
         Button attack = new Button("Attack");
         attack.setMaxSize(100, 50);
+        attack.setFont(upheavalSmall);
 
         //Creates upgrade choice label
         Label levelupChoice = new Label("Choose reward");
-        levelupChoice.setFont(new Font("Arial", 24));
+        levelupChoice.setFont(upheavalLarge);
+
 
         //Creates hp up button
         Button hpUp = new Button("+1 HP");
         hpUp.setMaxSize(100, 50);
+        hpUp.setFont(upheavalSmall);
 
         //Creates attack up button
         Button attackUp = new Button("+1 Attack");
         attackUp.setMaxSize(100, 50);
+        attackUp.setFont(upheavalSmall);
 
         //Creates random item button
-        Button randomReward = new Button("Mystery Box");
+        Button randomReward = new Button("Random Item");
         randomReward.setMaxSize(100, 50);
+        randomReward.setFont(upheavalSmall);
 
         //Creates play button
         Button play = new Button("Play");
         play.setMaxSize(100, 50);
+        play.setFont(upheavalSmall);
 
         //Code for pressing the attack up button
         attackUp.setOnAction(event -> 
@@ -234,9 +245,9 @@ public class App extends Application {
         layout.add(attack, 20, 30);
         layout.add(playerHP, 20, 35);
         layout.add(levelupChoice, 20, 5);
-        layout.add(attackUp, 10, 30);
-        layout.add(hpUp, 15, 30);
-        layout.add(randomReward, 20, 30);
+        layout.add(attackUp, 20, 15);
+        layout.add(hpUp, 20, 25);
+        layout.add(randomReward, 20, 35);
 
         
 
