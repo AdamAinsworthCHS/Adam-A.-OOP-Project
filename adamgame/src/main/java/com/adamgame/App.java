@@ -5,13 +5,16 @@ import java.util.Random;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -35,16 +38,33 @@ public class App extends Application {
         Font upheavalMedium = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 24);
         Font upheavalSmall = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 12);
         
+        //Creates GridPanes for each screen and sets info
+        GridPane titleScreen = new GridPane();
+        titleScreen.setPadding(new Insets(10, 10, 10, 10));
+        titleScreen.setVgap(8);
+        titleScreen.setHgap(10);
+
+        GridPane encounterScreen = new GridPane();
+        encounterScreen.setPadding(new Insets(10, 10, 10, 10));
+        encounterScreen.setVgap(8);
+        encounterScreen.setHgap(10);
+
+        GridPane levelScreen = new GridPane();
+        levelScreen.setPadding(new Insets(10, 10, 10, 10));
+        levelScreen.setVgap(8);
+        levelScreen.setHgap(10);
+        
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
 
         //Creates game title
         Label title = new Label("Adam's Game");
         title.setFont(upheavalTitle);
+        title.setTextAlignment(TextAlignment.CENTER);
 
         //Creates enemy info label
         Label enemyInfo = new Label();
-        enemyInfo.setFont(upheavalMedium);
+        enemyInfo.setFont(upheavalLarge);
 
         //Creates player hp info label
         Label playerHP = new Label();
@@ -80,72 +100,49 @@ public class App extends Application {
         play.setMaxSize(100, 50);
         play.setFont(upheavalSmall);
 
-        //Code for pressing the attack up button
+        //Code for pressing the attack up button. Increases the player's attack permanently.
         attackUp.setOnAction(event -> 
             {
                 p.attackUp(1);
                 p.fullHeal();
-                levelupChoice.setVisible(false);
-                levelupChoice.setManaged(false);
-                hpUp.setVisible(false);
-                hpUp.setManaged(false);
-                attackUp.setVisible(false);
-                attackUp.setManaged(false);
-                randomReward.setVisible(false);
-                randomReward.setManaged(false);
-                enemyInfo.setManaged(true);
-                enemyInfo.setVisible(true);
-                attack.setVisible(true);
-                attack.setManaged(true);
-                playerHP.setVisible(true);
-                playerHP.setManaged(true);
+                titleScreen.setVisible(false);
+                titleScreen.setManaged(false);
+                encounterScreen.setVisible(true);
+                encounterScreen.setManaged(true);
+                levelScreen.setVisible(false);
+                levelScreen.setManaged(false);
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
+                
             }
         );
 
-        //Code for pressing the hp up button
+        //Code for pressing the hp up button. Increases the player's HP permanently.
         hpUp.setOnAction(event -> 
             {
                 p.hpUp(1);
-                levelupChoice.setVisible(false);
-                levelupChoice.setManaged(false);
-                hpUp.setVisible(false);
-                hpUp.setManaged(false);
-                attackUp.setVisible(false);
-                attackUp.setManaged(false);
-                randomReward.setVisible(false);
-                randomReward.setManaged(false);
-                enemyInfo.setManaged(true);
-                enemyInfo.setVisible(true);
-                attack.setVisible(true);
-                attack.setManaged(true);
-                playerHP.setVisible(true);
-                playerHP.setManaged(true);
+                titleScreen.setVisible(false);
+                titleScreen.setManaged(false);
+                encounterScreen.setVisible(true);
+                encounterScreen.setManaged(true);
+                levelScreen.setVisible(false);
+                levelScreen.setManaged(false);
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
         ); 
 
-        //Code for pressing the mystery box button
+        //Code for pressing the mystery box button. Gives the player a randomized hp and attack buff that expires after a random amount of encounters.
         randomReward.setOnAction(event -> 
             {
-                levelupChoice.setVisible(false);
-                levelupChoice.setManaged(false);
-                hpUp.setVisible(false);
-                hpUp.setManaged(false);
-                attackUp.setVisible(false);
-                attackUp.setManaged(false);
-                randomReward.setVisible(false);
-                randomReward.setManaged(false);
-                enemyInfo.setManaged(true);
-                enemyInfo.setVisible(true);
-                attack.setVisible(true);
-                attack.setManaged(true);
-                playerHP.setVisible(true);
-                playerHP.setManaged(true);
+                titleScreen.setVisible(false);
+                titleScreen.setManaged(false);
+                encounterScreen.setVisible(true);
+                encounterScreen.setManaged(true);
+                levelScreen.setVisible(false);
+                levelScreen.setManaged(false);
                 i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 2));
                 p.hpUp(i.getHP());
                 p.attackUp(i.getAttack());
@@ -155,7 +152,7 @@ public class App extends Application {
             }
         ); 
         
-        //Code for pressing the attack button
+        //Code for pressing the attack button. Deals damage to the enemy based on your attack, enemy attacks after. If either die it will take the player to a new screen.
         attack.setOnAction(event -> 
             {
                 monster.getHit(p.getAttack());
@@ -169,41 +166,21 @@ public class App extends Application {
                             i.update(0, 0, 0);
                         }
                     }
-                    levelupChoice.setVisible(true);
-                    levelupChoice.setManaged(true);
-                    hpUp.setVisible(true);
-                    hpUp.setManaged(true);
-                    attackUp.setVisible(true);
-                    attackUp.setManaged(true);
-                    randomReward.setVisible(true);
-                    randomReward.setManaged(true);
-                    enemyInfo.setManaged(false);
-                    enemyInfo.setVisible(false);
-                    attack.setVisible(false);
-                    attack.setManaged(false);
-                    playerHP.setVisible(false);
-                    playerHP.setManaged(false);
+                    titleScreen.setVisible(false);
+                    titleScreen.setManaged(false);
+                    encounterScreen.setVisible(false);
+                    encounterScreen.setManaged(false);
+                    levelScreen.setVisible(true);
+                    levelScreen.setManaged(true);
                 } else {
                     p.getHit(monster.getAttack());
                     if (p.getHP() < 1){
-                        title.setVisible(true);
-                        title.setManaged(true);
-                        play.setVisible(true);
-                        play.setManaged(true);
-                        enemyInfo.setVisible(false);
-                        enemyInfo.setManaged(false);
-                        attack.setVisible(false);
-                        attack.setManaged(false);
-                        playerHP.setVisible(false);
-                        playerHP.setManaged(false);
-                        levelupChoice.setVisible(false);
-                        levelupChoice.setManaged(false);
-                        hpUp.setVisible(false);
-                        hpUp.setManaged(false);
-                        attackUp.setVisible(false);
-                        attackUp.setManaged(false);
-                        randomReward.setVisible(false);
-                        randomReward.setManaged(false);
+                        titleScreen.setVisible(true);
+                        titleScreen.setManaged(true);
+                        encounterScreen.setVisible(false);
+                        encounterScreen.setManaged(false);
+                        levelScreen.setVisible(false);
+                        levelScreen.setManaged(false);
                         control.resetScaling();
                         p.reset();
                     }
@@ -213,64 +190,57 @@ public class App extends Application {
         );
         
 
-        //Code for pressing the play button
+        //Code for pressing the play button, spawns a basic slime to fight
         play.setOnAction(event -> 
             {
-                play.setVisible(false);
-                play.setManaged(false);
-                title.setVisible(false);
-                title.setManaged(false);
-                enemyInfo.setManaged(true);
-                enemyInfo.setVisible(true);
-                attack.setVisible(true);
-                attack.setManaged(true);
-                playerHP.setVisible(true);
-                playerHP.setManaged(true);
+                titleScreen.setVisible(false);
+                encounterScreen.setVisible(true);
                 monster.update(control.randomEnemy(0), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
         );
-
-        //Creates GridPane layout and sets scene info
-        GridPane layout = new GridPane();
-        layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.setVgap(8);
-        layout.setHgap(10);
         
-        //Adding objects to layout
-        layout.add(play, 20, 30);
-        layout.add(title, 20, 5);
-        layout.add(enemyInfo, 20, 5);
-        layout.add(attack, 20, 30);
-        layout.add(playerHP, 20, 35);
-        layout.add(levelupChoice, 20, 5);
-        layout.add(attackUp, 20, 15);
-        layout.add(hpUp, 20, 25);
-        layout.add(randomReward, 20, 35);
+        //Adding objects to gridpanes as well as adjusting their alignment and other gridpane properties
+        titleScreen.setAlignment(Pos.CENTER);
+        titleScreen.add(title, 2, 1);
+        titleScreen.setHalignment(title, HPos.CENTER);
+        titleScreen.add(play, 2, 10, 1, 5);
+        titleScreen.setHalignment(play, HPos.CENTER);
+        titleScreen.setStyle("-fx-background-color: CornflowerBlue;");
+
+        titleScreen.add(encounterScreen, )
+        
+        encounterScreen.add(enemyInfo, 2, 1, 5, 1);
+        encounterScreen.add(attack, 2, 20, 5, 1);
+        encounterScreen.setHalignment(attack, HPos.CENTER);
+        encounterScreen.add(playerHP, 2, 16, 5, 1);
+        encounterScreen.setHalignment(playerHP, HPos.CENTER);
+        encounterScreen.setStyle("-fx-background-color: gray;");
+        
+        levelScreen.add(levelupChoice, 2, 1);
+        levelScreen.setHalignment(levelupChoice, HPos.CENTER);
+        levelScreen.add(attackUp, 1, 15);
+        levelScreen.setHalignment(attackUp, HPos.LEFT);
+        levelScreen.add(hpUp, 2, 15);
+        levelScreen.setHalignment(hpUp, HPos.CENTER);
+        levelScreen.add(randomReward, 3, 15);
+        levelScreen.setHalignment(randomReward, HPos.RIGHT);
+        levelScreen.setStyle("-fx-background-color: Gold;");
+        
 
         
 
         //Initializes the scene
-        Scene scene1 = new Scene(layout, 600, 400);
+        Scene scene1 = new Scene(titleScreen, 600, 400);
         primaryStage.setScene(scene1);
         primaryStage.show();
-        title.setVisible(true);
-        title.setManaged(true);
-        play.setVisible(true);
-        play.setManaged(true);
-        enemyInfo.setVisible(false);
-        enemyInfo.setManaged(false);
-        attack.setVisible(false);
-        attack.setManaged(false);
-        levelupChoice.setVisible(false);
-        levelupChoice.setManaged(false);
-        hpUp.setVisible(false);
-        hpUp.setManaged(false);
-        attackUp.setVisible(false);
-        attackUp.setManaged(false);
-        randomReward.setVisible(false);
-        randomReward.setManaged(false);
+        titleScreen.setVisible(true);
+        titleScreen.setManaged(true);
+        encounterScreen.setVisible(false);
+        encounterScreen.setManaged(false);
+        levelScreen.setVisible(false);
+        levelScreen.setManaged(false);
     }
 
     static void setRoot(String fxml) throws IOException {
