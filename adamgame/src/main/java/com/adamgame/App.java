@@ -53,6 +53,11 @@ public class App extends Application {
         levelScreen.setPadding(new Insets(10, 10, 10, 10));
         levelScreen.setVgap(8);
         levelScreen.setHgap(10);
+
+        //Adds the scenes
+        Scene scene1 = new Scene(titleScreen, 600, 400);
+        Scene scene2 = new Scene(encounterScreen, 600, 400);
+        Scene scene3 = new Scene(levelScreen, 600, 400);
         
         //Sets the title of the window
         primaryStage.setTitle("Adam's Game");
@@ -105,12 +110,8 @@ public class App extends Application {
             {
                 p.attackUp(1);
                 p.fullHeal();
-                titleScreen.setVisible(false);
-                titleScreen.setManaged(false);
-                encounterScreen.setVisible(true);
-                encounterScreen.setManaged(true);
-                levelScreen.setVisible(false);
-                levelScreen.setManaged(false);
+                primaryStage.setScene(scene2);
+                primaryStage.show();
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -122,12 +123,8 @@ public class App extends Application {
         hpUp.setOnAction(event -> 
             {
                 p.hpUp(1);
-                titleScreen.setVisible(false);
-                titleScreen.setManaged(false);
-                encounterScreen.setVisible(true);
-                encounterScreen.setManaged(true);
-                levelScreen.setVisible(false);
-                levelScreen.setManaged(false);
+                primaryStage.setScene(scene2);
+                primaryStage.show();
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -137,12 +134,8 @@ public class App extends Application {
         //Code for pressing the mystery box button. Gives the player a randomized hp and attack buff that expires after a random amount of encounters.
         randomReward.setOnAction(event -> 
             {
-                titleScreen.setVisible(false);
-                titleScreen.setManaged(false);
-                encounterScreen.setVisible(true);
-                encounterScreen.setManaged(true);
-                levelScreen.setVisible(false);
-                levelScreen.setManaged(false);
+                primaryStage.setScene(scene2);
+                primaryStage.show();
                 i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 2));
                 p.hpUp(i.getHP());
                 p.attackUp(i.getAttack());
@@ -166,21 +159,13 @@ public class App extends Application {
                             i.update(0, 0, 0);
                         }
                     }
-                    titleScreen.setVisible(false);
-                    titleScreen.setManaged(false);
-                    encounterScreen.setVisible(false);
-                    encounterScreen.setManaged(false);
-                    levelScreen.setVisible(true);
-                    levelScreen.setManaged(true);
+                    primaryStage.setScene(scene3);
+                    primaryStage.show();
                 } else {
                     p.getHit(monster.getAttack());
                     if (p.getHP() < 1){
-                        titleScreen.setVisible(true);
-                        titleScreen.setManaged(true);
-                        encounterScreen.setVisible(false);
-                        encounterScreen.setManaged(false);
-                        levelScreen.setVisible(false);
-                        levelScreen.setManaged(false);
+                        primaryStage.setScene(scene1);
+                        primaryStage.show();
                         control.resetScaling();
                         p.reset();
                     }
@@ -193,8 +178,8 @@ public class App extends Application {
         //Code for pressing the play button, spawns a basic slime to fight
         play.setOnAction(event -> 
             {
-                titleScreen.setVisible(false);
-                encounterScreen.setVisible(true);
+                primaryStage.setScene(scene2);
+                primaryStage.show();
                 monster.update(control.randomEnemy(0), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -208,9 +193,8 @@ public class App extends Application {
         titleScreen.add(play, 2, 10, 1, 5);
         titleScreen.setHalignment(play, HPos.CENTER);
         titleScreen.setStyle("-fx-background-color: CornflowerBlue;");
-
-        titleScreen.add(encounterScreen, )
         
+        encounterScreen.setAlignment(Pos.CENTER);
         encounterScreen.add(enemyInfo, 2, 1, 5, 1);
         encounterScreen.add(attack, 2, 20, 5, 1);
         encounterScreen.setHalignment(attack, HPos.CENTER);
@@ -218,6 +202,7 @@ public class App extends Application {
         encounterScreen.setHalignment(playerHP, HPos.CENTER);
         encounterScreen.setStyle("-fx-background-color: gray;");
         
+        levelScreen.setAlignment(Pos.CENTER);
         levelScreen.add(levelupChoice, 2, 1);
         levelScreen.setHalignment(levelupChoice, HPos.CENTER);
         levelScreen.add(attackUp, 1, 15);
@@ -232,15 +217,8 @@ public class App extends Application {
         
 
         //Initializes the scene
-        Scene scene1 = new Scene(titleScreen, 600, 400);
         primaryStage.setScene(scene1);
         primaryStage.show();
-        titleScreen.setVisible(true);
-        titleScreen.setManaged(true);
-        encounterScreen.setVisible(false);
-        encounterScreen.setManaged(false);
-        levelScreen.setVisible(false);
-        levelScreen.setManaged(false);
     }
 
     static void setRoot(String fxml) throws IOException {
