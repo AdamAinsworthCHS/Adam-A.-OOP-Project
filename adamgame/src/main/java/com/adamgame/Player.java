@@ -5,6 +5,7 @@ public class player {
     int hp = 0;
     int maxHP = 0;
     int attack = 0;
+    int trueMaxHP;
 
     public player(String playerName, int playerHealth, int playerMaxHealth, int playerAttack)
     {
@@ -27,6 +28,11 @@ public class player {
     public int getHP()
     {
         return hp;
+    }
+
+    public int getMaxHP()
+    {
+        return maxHP;
     }
 
     public String getStringHP()
@@ -80,5 +86,25 @@ public class player {
         } else {
             attack -= decreaseAmount;
         }
+    }
+
+    public void saveHP(int savedAmount)
+    {
+        trueMaxHP = savedAmount;
+    }
+
+    public void addSaveHP(int savedAmount)
+    {
+        trueMaxHP += savedAmount;
+    }
+
+    public int getSavedHP()
+    {
+        return trueMaxHP;
+    }
+
+    public void setMaxHP(int amountSet)
+    {
+        maxHP = amountSet;
     }
 }

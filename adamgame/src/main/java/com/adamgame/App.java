@@ -95,10 +95,15 @@ public class App extends Application {
         attackUp.setMaxSize(100, 50);
         attackUp.setFont(upheavalSmall);
 
-        //Creates random item button
-        Button randomReward = new Button("Random Item");
+        //Creates random stat button
+        Button randomReward = new Button("Random Stat Upgrade");
         randomReward.setMaxSize(100, 50);
         randomReward.setFont(upheavalSmall);
+
+        //Creates random item button
+        Button itemReward = new Button("Random Item");
+        itemReward.setMaxSize(100, 50);
+        itemReward.setFont(upheavalSmall);
 
         //Creates play button
         Button play = new Button("Play");
@@ -123,6 +128,10 @@ public class App extends Application {
         hpUp.setOnAction(event -> 
             {
                 p.hpUp(1);
+                if (p.trueMaxHP > 0)
+                {
+                    p.addSaveHP(1);
+                }
                 primaryStage.setScene(scene2);
                 primaryStage.show();
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
@@ -136,6 +145,10 @@ public class App extends Application {
             {
                 primaryStage.setScene(scene2);
                 primaryStage.show();
+                if (i.hpUp == 0)
+                {
+                    p.saveHP(p.getMaxHP());
+                }
                 i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 2));
                 p.hpUp(i.getHP());
                 p.attackUp(i.getAttack());
@@ -143,7 +156,7 @@ public class App extends Application {
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
             }
-        ); 
+        );
         
         //Code for pressing the attack button. Deals damage to the enemy based on your attack, enemy attacks after. If either die it will take the player to a new screen.
         attack.setOnAction(event -> 
@@ -154,7 +167,8 @@ public class App extends Application {
                     if (i.getUses() > 0){
                         i.removeUse();
                         if (i.getUses() == 0){
-                            p.statDecrease("HP", i.getHPData());
+                            p.fullHeal();
+                            p.setMaxHP(p.getSavedHP());
                             p.statDecrease("Attack", i.getAttackData());
                             i.update(0, 0, 0);
                         }
