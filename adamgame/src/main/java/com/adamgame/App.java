@@ -32,6 +32,7 @@ public class App extends Application {
         Random rand = new Random();
         controller control = new controller(1, 0);
         item i = new item(0, 0, 0);
+        activeItem a = new activeItem("No Item", true);
 
         Font upheavalTitle = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 50);
         Font upheavalLarge = Font.loadFont(getClass().getResource("/fonts/upheavtt.ttf").toExternalForm(), 36);
@@ -96,7 +97,7 @@ public class App extends Application {
         attackUp.setFont(upheavalSmall);
 
         //Creates random stat button
-        Button randomReward = new Button("Random Stat Upgrade");
+        Button randomReward = new Button("Random Stat");
         randomReward.setMaxSize(100, 50);
         randomReward.setFont(upheavalSmall);
 
@@ -104,6 +105,11 @@ public class App extends Application {
         Button itemReward = new Button("Random Item");
         itemReward.setMaxSize(100, 50);
         itemReward.setFont(upheavalSmall);
+
+        //Creates use item button
+        Button useItem = new Button("No Item");
+        useItem.setMaxSize(100, 50);
+        useItem.setFont(upheavalSmall);
 
         //Creates play button
         Button play = new Button("Play");
@@ -120,6 +126,7 @@ public class App extends Application {
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
+                useItem.setText("Use " + a.type);
                 
             }
         );
@@ -137,10 +144,11 @@ public class App extends Application {
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
+                useItem.setText("Use " + a.type);
             }
         ); 
 
-        //Code for pressing the mystery box button. Gives the player a randomized hp and attack buff that expires after a random amount of encounters.
+        //Code for pressing the random stat button. Gives the player a randomized hp and attack buff that expires after a random amount of encounters.
         randomReward.setOnAction(event -> 
             {
                 primaryStage.setScene(scene2);
@@ -155,6 +163,23 @@ public class App extends Application {
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
+                useItem.setText("Use " + a.type);
+            }
+        );
+
+        //Code for pressing the random item button. Gives the player a randomized hp and attack buff that expires after a random amount of encounters.
+        itemReward.setOnAction(event -> 
+            {
+                if (a.used == true)
+                {
+                    a.randomItem(rand.nextInt(2));
+                    primaryStage.setScene(scene2);
+                    primaryStage.show();
+                    monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
+                    enemyInfo.setText(monster.toString());
+                    playerHP.setText(p.getStringHP());
+                    useItem.setText("Use " + a.type);
+                }
             }
         );
         
@@ -187,6 +212,43 @@ public class App extends Application {
                 }
             }
         );
+
+        //Code for pressing the use item button.
+        useItem.setOnAction(event -> 
+            {
+                if (a.used == false)
+                {
+                    if (a.type == "HealPotion")
+                    {
+                        p.fullHeal();
+                        playerHP.setText(p.getStringHP());
+                        a.update("No Item", true);
+                        useItem.setText("Use " + a.type);
+                    }
+                    if (a.type == "Bomb")
+                    {
+                        a.update("No Item", true);
+                        useItem.setText("Use " + a.type);
+                        if (i.getUses() > 0){
+                            i.removeUse();
+                            if (i.getUses() == 0){
+                                p.fullHeal();
+                                p.setMaxHP(p.getSavedHP());
+                                p.statDecrease("Attack", i.getAttackData());
+                                i.update(0, 0, 0);
+                            }
+                        }
+                        primaryStage.setScene(scene3);
+                        primaryStage.show();
+                    }
+                    else
+                    {
+                        a.update("No Item", true);
+                        useItem.setText("Use " + a.type);
+                    }
+                }
+            }
+        );
         
 
         //Code for pressing the play button, spawns a basic slime to fight
@@ -210,22 +272,26 @@ public class App extends Application {
         
         encounterScreen.setAlignment(Pos.CENTER);
         encounterScreen.add(enemyInfo, 2, 1, 5, 1);
-        encounterScreen.add(attack, 2, 20, 5, 1);
+        encounterScreen.add(attack, 1, 20, 5, 1);
         encounterScreen.setHalignment(attack, HPos.CENTER);
+        encounterScreen.add(useItem, 3, 20, 5, 1);
+        encounterScreen.setHalignment(useItem, HPos.CENTER);
         encounterScreen.add(playerHP, 2, 16, 5, 1);
         encounterScreen.setHalignment(playerHP, HPos.CENTER);
         encounterScreen.setStyle("-fx-background-color: gray;");
         
         levelScreen.setAlignment(Pos.CENTER);
-        levelScreen.add(levelupChoice, 2, 1);
+        levelScreen.add(levelupChoice, 3, 1, 10, 5);
         levelScreen.setHalignment(levelupChoice, HPos.CENTER);
-        levelScreen.add(attackUp, 1, 15);
+        levelScreen.add(attackUp, 1, 15, 1, 5);
         levelScreen.setHalignment(attackUp, HPos.LEFT);
-        levelScreen.add(hpUp, 2, 15);
+        levelScreen.add(hpUp, 4, 15, 1, 5);
         levelScreen.setHalignment(hpUp, HPos.CENTER);
-        levelScreen.add(randomReward, 3, 15);
+        levelScreen.add(randomReward, 6, 15, 1, 5);
         levelScreen.setHalignment(randomReward, HPos.RIGHT);
         levelScreen.setStyle("-fx-background-color: Gold;");
+        levelScreen.add(itemReward, 7, 15, 1, 5);
+        levelScreen.setHalignment(itemReward, HPos.RIGHT);
         
 
         
