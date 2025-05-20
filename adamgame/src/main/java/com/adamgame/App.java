@@ -160,6 +160,7 @@ public class App extends Application {
                 i.update(rand.nextInt(4), rand.nextInt(4), (rand.nextInt(3) + 2));
                 p.hpUp(i.getHP());
                 p.attackUp(i.getAttack());
+                p.fullHeal();
                 monster.update(control.randomEnemy(rand.nextInt(4)), control.scaling());
                 enemyInfo.setText(monster.toString());
                 playerHP.setText(p.getStringHP());
@@ -172,6 +173,7 @@ public class App extends Application {
             {
                 if (a.used == true)
                 {
+                    p.fullHeal();
                     a.randomItem(rand.nextInt(2));
                     primaryStage.setScene(scene2);
                     primaryStage.show();
