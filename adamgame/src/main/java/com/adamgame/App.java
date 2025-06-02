@@ -108,7 +108,7 @@ public class App extends Application {
 
         //Creates use item button
         Button useItem = new Button("No Item");
-        useItem.setMaxSize(100, 50);
+        useItem.setMaxSize(150, 100);
         useItem.setFont(upheavalSmall);
 
         //Creates play button
@@ -276,9 +276,9 @@ public class App extends Application {
         encounterScreen.add(enemyInfo, 2, 1, 5, 1);
         encounterScreen.add(attack, 1, 20, 5, 1);
         encounterScreen.setHalignment(attack, HPos.CENTER);
-        encounterScreen.add(useItem, 3, 20, 5, 1);
+        encounterScreen.add(useItem, 4, 20, 15, 1);
         encounterScreen.setHalignment(useItem, HPos.CENTER);
-        encounterScreen.add(playerHP, 2, 16, 5, 1);
+        encounterScreen.add(playerHP, 2, 16, 10, 1);
         encounterScreen.setHalignment(playerHP, HPos.CENTER);
         encounterScreen.setStyle("-fx-background-color: gray;");
         
